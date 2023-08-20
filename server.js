@@ -2,7 +2,7 @@ var express = require("express");
 var mysql = require("mysql2");
 var fileuploader = require("express-fileupload");
 var app = express();
-app.listen(2005, function () {
+app.listen(2005 || process.env.PORT, function () {
   console.log("Server Started");
 });
 const nodemailer = require("nodemailer");
