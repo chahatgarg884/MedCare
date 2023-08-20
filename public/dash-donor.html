@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style/signup.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="style/signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="script/angular.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var OldPwd = $("#txtoPwd").val();
+            var newPwd = $("#txtnPwd").val();
+            var confirmPwd = $("#txtcPwd").val();
+            $("#settings").click(function () {
+                if ($("#txtoPwd").val() != $("#txtnPwd").val()) {
+                    if ($("#txtnPwd").val() == $("#txtcPwd").val()) {
+                        var emailku = $("#txtEmail2").val();
+                        var newPwd = $("#txtnPwd").val();
+                        var oldPwd = $("#txtoPwd").val();
+
+                        var obj = {
+                            type: "get",
+                            url: "/setting",
+                            data: {
+                                kuchemail: emailku,
+                                kuchnewPwd: newPwd,
+                                kucholdPwd: oldPwd,
+
+
+                            }
+                        }
+                        $.ajax(obj).done(function (respkuch1) {
+                            //  alert(respkuch);
+                            $("#btn-setting").html(respkuch1);
+                        }).fail(function (errkuch1) {
+                            //alert(errkuch);
+                            $("#btn-setting").html(errkuch1);
+                        })
+                    }
+                    else
+                        alert("Confirm password and New password should be same");
+
+                }
+                else
+                    alert("New password Should be different from Old Password");
+
+            });
+
+            function setActiveUser() {
+                if (localStorage.getItem("activeKuch") == undefined) {
+                    location.href = "index.html";
+                    return;
+                }
+                var au = localStorage.getItem("activeKuch");
+                // alert(au);
+                $("#txtEmail2").val(au).prop("readonly", true);
+            }
+            setActiveUser();
+
+
+            $("#logout").click(function () {
+                localStorage.removeItem("activeKuch");
+                location.href = "index.html";
+            })
+        });
+    </script>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+
+        .i {
+            margin: 40px 40px 40px 40px;
+            height: 300px;
+            width: 250px;
+            align-items: center;
+        }
+
+        #nav1 {
+            background-color: white;
+            margin-top: -10px;
+            margin-bottom: -10px;
+            height: 60px;
+
+
+            /* color: antiquewhite; */
+        }
+
+        .card1 {
+            width: 1548px;
+        }
+
+        #myVideo {
+            width: 150px;
+            /* border: 1px solid black; */
+        }
+
+        .c1 {
+            transition: ease all 1s;
+        }
+
+        .c1:hover {
+            transform: scale(1.1);
+            transition: ease all 1s;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- //==========Navigation Bar=============== -->
+    <nav class="navbar navbar-default navbar-fixed-top ">
+        <div class="container-fluid " id="nav1">
+            <a class="navbar-brand" href="#">
+                <img src="img/MedCare.png " alt="Bootstrap" width="50" height="45">
+            </a>
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <div class="row">
+                    <!-- <div class="col-md-2">
+    
+                </div>-->
+                    <!-- <div class="col-md-5"> 
+                  <img src="img/MedCare.png" alt="" width="50px" height="45px">
+                </div> -->
+                    <div class="col-md-5">
+                        <h3>
+                            MedCare
+                        </h3>
+                    </div>
+                </div>
+
+
+            </ul>
+
+            <form class="d-flex" role="search">
+                <!-- ///////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// Log-Out ////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////// -->
+                <button type="button" class="btn btn-danger" id="logout">Log Out</button>
+
+
+
+            </form>
+        </div>
+        </div>
+    </nav>
+
+    <!-- <center><h2>Welcome &nbsp;<span id="spanWelcome">*</span> </h2></center> -->
+    <!-- //======================Cards======================= -->
+    <div class="row bg-primary mt-3 card1">
+        <div class="col-md-12 ">
+            <center>
+                <h4 class="text-white"> Donor Dashboard</h2>
+            </center>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-3 ">
+                <div class="card c1">
+                    <img src="img/profile.png" class="i" alt="...">
+                    <div class="card-body">
+
+                        <center> <a href="profile-donor.html" class="btn btn-primary">Profile</a></center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 c1">
+                <div class="card">
+                    <img src="img/avail-med.png" class="i" alt="...">
+                    <div class="card-body">
+
+                        <center> <a href="avail-med.html" class="btn btn-primary">Avail. Medicines</a></center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 c1">
+                <div class="card">
+                    <img src="img/med-manager.png" class="i" alt="...">
+                    <div class="card-body">
+
+                        <center> <a href="med-manager.html" class="btn btn-primary">Med. Manager</a></center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 ">
+                <div class="card">
+                    <img src="img/setting.png" class="i" alt="...">
+                    <div class="card-body">
+
+                        <center> <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#divsettings">Settings</a></center>
+                        <div class="modal fade" id="divsettings" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true" style="color: black;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Settings</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <center> <video autoplay muted loop id="myVideo">
+                                                <source src="img/loading.mp4" type="video/mp4">
+                                            </video></center>
+                                        <form method="post">
+                                            <div class="mb-3">
+                                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+
+                                                <input type="email" class="form-control" id="txtEmail2"
+                                                    aria-describedby="emailHelp">
+
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleInputPassword1" class="form-label">Old
+                                                    Password</label>
+
+                                                <input type="password" class="form-control" id="txtoPwd">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleInputPassword1" class="form-label">New
+                                                    Password</label>
+
+                                                <input type="password" class="form-control" id="txtnPwd">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleInputPassword1" class="form-label">Confirm
+                                                    Password</label>
+
+                                                <input type="password" class="form-control" id="txtcPwd">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <span id="btn-setting">*</span>
+                                        <button type="button" class="btn btn-primary" id="settings">Update</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- //=====================Bootstrap link=================== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="script/angular.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script>
+    var module = angular.module("myModule", []);
+    module.controller("myController", function ($scope, $http) {
+
+
+
+      $scope.jsonArray;
+      $scope.jsonarray;
+
+      //-------------
+
+      //==============
+
+      $scope.fetchCities = function () {
+        var url = "/get-cities";
+        $http.get(url).then(done, fail);
+        function done(response) {
+          // alert(JSON.stringify(response.data));
+          $scope.jsonArray = response.data;
+
+        }
+        function fail(response) {
+          alert(response.data);
+        }
+      }
+      //=====================
+      $scope.fetchMeds = function () {
+        var url = "/get-meds";
+        $http.get(url).then(done, fail);
+        function done(response) {
+          // alert(JSON.stringify(response.data));
+          $scope.jsonarray = response.data;
+
+        }
+        function fail(response) {
+          alert(response.data);
+        }
+      }
+
+      // ------------------------------
+      $scope.selObj;
+      $scope.selObj1;
+      $scope.doShowSelcity=function()
+          {
+              alert("Choosen City is"+ $scope.selObj.city);
+              //AJAX Request
+          }
+
+      $scope.doShowSelmed=function()
+          {
+              alert("Choosen Medicine is"+$scope.selObj1.med);
+              //AJAX Request
+          }
+
+      $scope.donorDetails = function () {
+        var url = "/fetch-donors?medKuch=" + $scope.selObj1.med + "&cityKuch=" + $scope.selObj.city;
+        // alert(url);
+        $http.get(url).then(done, fail);
+        function done(response) {
+          // alert(JSON.stringify(response.data));
+          $scope.JsonArr3 = response.data;
+
+        }
+        function fail(response) {
+          alert(response.data);
+        }
+      }
+
+      $scope.selOneObj;
+      $scope.doShowOne = function (selIndex) {
+        $scope.selOneObj = $scope.JsonArr3[selIndex];
+      }
+      
+
+    })
+  </script>
+  <script>
+    $(document).ready(function()
+    {
+      $("#logout").click(function () {
+                localStorage.removeItem("activeKuch");
+                location.href = "index.html";
+            })
+    })
+  </script>
+  <style>
+    body {
+
+      background-color: antiquewhite;
+    }
+
+    #wait {
+      display: none;
+    }
+
+    .card {
+      margin-top: 20px;
+#detail
+{
+  float: right;
+}
+
+
+
+    }
+
+    #c {
+      width: 1200px;
+
+    }
+  </style>
+</head>
+
+<body ng-app="myModule" ng-controller="myController" ng-init="fetchCities();fetchMeds();">
+  <center>
+    <nav class="navbar navbar-default navbar-fixed-top " style="background-color: white;" >
+      <div class="container-fluid " id="nav1">
+        <a  class="navbar-brand" href="#">
+          <img src="img/MedCare.png " alt="Bootstrap" width="50" height="45">
+        </a>
+        
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <div class="row">
+              <!-- <div class="col-md-2">
+  
+              </div>-->
+              <!-- <div class="col-md-5"> 
+                <img src="img/MedCare.png" alt="" width="50px" height="45px">
+              </div> -->
+              <div class="col-md-5">
+                <h3 >
+                  MedCare
+                </h3>
+              </div>
+            </div>
+          
+           
+          </ul>
+  
+          <form class="d-flex" role="search">
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////// Log-Out ////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////// -->
+            <button type="button"  class="btn btn-danger" id="logout">Log Out</button>
+              
+            
+  
+          </form>
+        </div>
+      </div>
+    </nav>
+
+
+
+    <!-- ///////////////////////////// -->
+
+    <center>
+      <h3 style="background-color: black;color: antiquewhite;"> Find Medicines</h3>
+    </center>
+    <br><br>
+   <b> Select City near to you:</b>
+    <select ng-options="obj.city  for obj in jsonArray" ng-model="selObj" ng-change="doShowSelcity();">
+      <option value="">Select</option>
+    </select>
+<br><br><br>
+  <b> Choose Medicine you want:</b>
+    <select ng-options="obj1.med  for obj1 in jsonarray" ng-model="selObj1" ng-change="doShowSelmed();">
+      <option value="">Select</option>
+    </select>
+    <br><br>
+    <input type="button" class="btn btn-primary" value="Donor-Details" ng-click="donorDetails();">
+
+    <div>
+      <div class="row" id="c">
+        <div class="col-md-3" ng-repeat="obj in JsonArr3">
+          <div class="card">
+
+            <div class="card-body">
+              <div align="center">
+                <img src="img/details.jpg" alt="" width="200" height="200"> 
+              </div>
+              <br>
+              <h3 class="card-title">{{obj.name}}</h3>
+              Contact: <h6 class="card-title">{{obj.contact}}</h6>
+              Availability Hours: <h6 class="card-title">{{obj.ahours}}</h6>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+
+
+
+
+
+              <!-- <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#details" ng-click="doShowOne($index);">Details</button> -->
+              <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#details"
+                ng-click="doShowOne($index);">Details</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </center>
+  <div class="modal fade" id="details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Details of donor</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <center> <img src="upload/{{selOneObj.fileName}}" width="200" height="200" alt=""></center>
+          <div class="row">
+          <div class="col-md-6">
+           <h5> Name </h5><br>
+           <h5> Contact </h5><br>
+           <h5> City </h5><br>
+           <h5> Availability Hours </h5><br>
+           <h5> Expiry Date </h5><br>
+          </div>
+          <div class="col-md-6">
+            <h5> : {{selOneObj.name}} </h5><br>
+            <h5> : {{selOneObj.contact}} </h5><br>
+            <h5> : {{selOneObj.city}} </h5><br>
+            <h5> : {{selOneObj.ahours}} </h5><br>
+            <h5> : {{selOneObj.expdate}} </h5><br>
+          </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+</body>
+
+</html>

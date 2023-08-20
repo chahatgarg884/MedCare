@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="style/signup.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="script/angular.min.js"></script>
+<!-- ////////////////////////////////////// -->
+<script>
+  var module=angular.module("myModule",[]);
+  module.controller("myController",function($scope,$http){
+          
+
+
+        
+
+          //-------------
+          $scope.doremove=function()
+          {
+              
+                  var url="/do-remove";//+"&pwd="+pwdkuch;
+                  $http.get(url).then(done,fail);
+                  function done(response)
+                  {
+                    //  alert(response.data);
+                    
+                  }
+               function fail(response)
+                  {
+                          // alert(response.data);
+                  }   
+
+          }
+          //===============
+          
+          
+          
+          
+  })
+</script>
+<!-- //////////////////////////// -->
+  <script>
+    function doPrev(refFile, prevImg) {
+      const [file] = refFile.files
+      if (file) {
+        prevImg.src = URL.createObjectURL(file)
+      }
+    }
+
+    //=============================================
+    $(document).ready(function () {
+
+      $("#txtEmail").blur(function () {
+        if ($("#errEmail").html() == "OK") {
+        var emailKu = $(this).val();
+        var obj = {
+          type: "get",
+          url: "/chk-email",
+          data: {
+            kuchEmail: emailKu
+          }
+        }
+
+        $.ajax(obj).done(function (respKuch) {
+          //alert(respKuch);
+          $("#res").html(respKuch);
+        }).fail(function (errKuch) {
+          // alert(errKuch)
+          $("#res").html(respKuch);
+        })
+          }
+        else
+        $("#res").html("");
+      });
+
+
+
+   
+    $("#txtEmail").blur(function () {
+
+      var r = /^[a-zA-Z_]+?\.\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+      var p= /^[a-zA-Z_]\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+      var email = $("#txtEmail").val();
+      if (r.test(email) == true || p.test(email) == true) {
+
+        $("#errEmail").html("OK");
+        $("#errEmail").addClass("sokhay").removeClass("okhay");
+      }
+      else {
+
+        $("#errEmail").html("Invalid ");
+        $("#errEmail").addClass("okhay").removeClass("sokhay");
+
+
+      }
+
+
+    });
+
+    $("#btn").click(function () {
+
+      if ($("#errEmail").html() == "OK") {
+
+        var emailku = $("#txtEmail").val();
+        var pwd = $("#txtpwd").val();
+        var type1 = $("#type1").val();
+        var obj = {
+          type: "get",
+          url: "/chk-submit",
+          data: {
+            kuchemail: emailku,
+            kuchpwd: pwd,
+            kuchtype: type1
+          }
+        }
+        $.ajax(obj).done(function (respkuch1) {
+          //  alert(respkuch);
+          $("#btn-submit").html(respkuch1);
+        }).fail(function (errkuch1) {
+          //alert(errkuch);
+          $("#btn-submit").html(errkuch1);
+        })
+      }
+      else
+        alert("Fill correct data first");
+    });
+
+
+
+    //=================
+    // $(document).ajaxStart(function () {
+    //     $("#wait").css("display", "block");
+    // });
+
+    // $(document).ajaxStop(function () {
+    //     $("#wait").css("display", "none");
+    // });
+    //========================
+    $("#loginshow").click(function () {
+      var emailku = $("#txtEmail1").val();
+      var pwd = $("#txtPwd1").val();
+      var obj = {
+        type: "get",
+        url: "/chk-login-submit",
+        data: {
+          kuchemail: emailku,
+          kuchpwd: pwd
+        }
+      }
+      $.ajax(obj).done(function (respJSONkuch) {
+
+        localStorage.setItem("activeKuch",$("#txtEmail1").val());
+
+        if (respJSONkuch == "Donor")
+          location.href = "dash-donor.html"; //only used in ajax 
+        // resp.sendFile(process.cwd()+"/public/donor-dashboard.html")
+        else if (respJSONkuch == "Needy")
+          location.href = "dash-needy.html";
+          else if (respJSONkuch == "admin")
+          location.href="dash-admin.html";
+        else
+          alert(respJSONkuch);
+      }).fail(function (errkuch1) {
+        alert(errkuch1);
+        //$("#btn-submit").html(errkuch1);
+      })
+
+    });
+    });
+  </script>
+ 
+  <script>
+    function doSetInterval()
+    {
+        const myCarouselElement = document.querySelector('#carouselExampleIndicators');
+
+    const carousel = new bootstrap.Carousel(myCarouselElement, {
+    interval: 2000,
+   
+    })
+    }
+</script>
+
+</head>
+
+<body ng-app="myModule" ng-controller="myController" ng-init="doremove();" onload="doSetInterval();">
+  
+  <nav class="navbar navbar-default navbar-fixed-top " >
+    <div class="container-fluid " id="nav1">
+      <a class="navbar-brand" href="#">
+        <img src="img/MedCare.png" alt="Bootstrap" width="50" height="45">
+      </a>
+      
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <div class="row">
+            <!-- <div class="col-md-2">
+
+            </div>-->
+            <!-- <div class="col-md-5"> 
+              <img src="img/MedCare.png" alt="" width="50px" height="45px">
+            </div> -->
+            <div class="col-md-5">
+              <h3 >
+                MedCare
+              </h3>
+            </div>
+          </div>
+        
+         
+        </ul>
+
+        <form class="d-flex" role="search">
+          <!-- ///////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// sign-Up ////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////// -->
+          <button type="button" id="sgn" class="btn btn-dark" data-bs-toggle="modal"  data-bs-target="#divSignup">Sign Up</button>
+            
+          <!-- //========================= -->
+          <div class="modal fade" id="divSignup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Sign Up Modal</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <br>
+                <div class="modal-body">
+                  <div class="position-relative">
+                    <div class="position-absolute top-0 start-50 translate-middle"><img src="img/admininfo.png" alt="">
+                    </div>
+                  </div>
+                  <br>
+                  <form method="post">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label "><b>Email address</b></label>&nbsp;<i class="fa-solid fa-users"></i>
+                      <span id="errEmail">*</span>
+                      <input type="email" class="form-control mar" id="txtEmail" aria-describedby="emailHelp">
+                      <span id="res"></span>
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label "><b>Password</b></label> <i class="fa-sharp fa-solid fa-key fa-beat"></i>
+                     <div><input type="password" class="form-control mar" id="txtpwd"></div> 
+                      <div></div>
+                    </div class="mb-3">
+                    <div>
+                      <label for="exampleInputtype1" class="form-label "><b>Type</b></label>
+                      <select class="form-select mar" name="idproof" id="type1">
+                        <option selected>Select</option>
+                        <option value="Donor">Donor</option>
+                        <option value="Needy">Needy</option>
+
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <span id="btn-submit">*</span>
+                  <button type="button" class="btn btn-primary" id="btn" formaction="/signup">Submit</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// Log-In ////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////// -->
+
+          <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#divlogin">Log In</button>
+
+          <!-- //===================== -->
+          <div class="modal fade" id="divlogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Log In Modal</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <br><br>
+                <div class="modal-body">
+                  <div class="position-relative">
+                    <div class="position-absolute top-0 start-50 translate-middle"><img src="img/userlogin.png" alt="">
+                    </div>
+                  </div>
+                  <!-- <center><video src="img/log in.mp4" id="log"></video></center> -->
+                  <br><br>
+                  <form method="post">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Email address</label>
+                      
+                      <input type="email" class="form-control" id="txtEmail1" aria-describedby="emailHelp">
+
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Password</label>
+                     
+                      <input type="password" class="form-control" id="txtPwd1"> 
+                      
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-primary" id="loginshow" formaction="/login">Submit</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="img/med1.jpg" width="1600px" height="500px" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="img/donation.jpg" width="1600px" height="500px" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="img/needyys.jpg" width="1600px" height="500px" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="img/np.jpg" width="1600px" height="500px" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <!-- //========================Our Services========== -->
+  <div class="dolabel">
+   
+    <center><h4 style="line-height: 50px;">Our Services</h4></center>
+  </div>
+  <div class="container">
+    <div class="row mt-3">
+        <div class="col-md-3 c1 ">
+          <div class="card " >
+            <img src="img/donate.jpg" class="card-img-top" alt="Pic Missing">
+            <div class="card-body">
+              <p class="card-text" style="color: aqua;">Join us in making a difference! Your generous donations of medicine can save lives and bring hope to those in need. Together, we can create a healthier and happier world for all. <br><br><br> </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 c1">
+          <div class="card" >
+            <img src="img/need.jpg" height="228px" class="card-img-top" alt="Pic Missing">
+            <div class="card-body">
+              <p class="card-text" style="color: aqua;">Transforming Lives with the Power of Medicine: Join us in bridging the gap and providing vital healthcare access to underserved communities. Your generosity can save lives and bring hope to those in need. <br><br> </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 c1">
+          <div class="card" >
+            <img src="img/t&c.avif" height="228px" class="card-img-top" alt="Pic Missing">
+            <div class="card-body">
+              <p class="card-text" style="color: aqua;"> we strive to provide accurate and reliable information on our website, we do not take responsibility for any inaccuracies or errors that may occur. Visitors are advised to use the content at their own discretion and risk. <br><br> </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 c1">
+          <div class="card" >
+            <img src="img/npg.jpeg" height="228px" class="card-img-top" alt="Pic Missing">
+            <div class="card-body">
+              <p class="card-text" style="color: aqua;" > With commitment to improving global health, we strive to bridge the gap in medical access for the needy. Through your support, we can provide essential medicines to vulnerable communities and saving lives for a healthier tomorrow.</p>
+            </div>
+          </div>
+      </div>
+        
+    </div>
+</div>
+<br>
+<!-- //=========================About Us=========== -->
+<div class="dolabel">
+   
+  <center><h4 style="line-height: 50px;">About Us</h4></center>
+</div>
+<div class="row" style="width: 100%;">
+<div class="card d1" style="width: 49%;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="img/developer.png" class="card-img "  alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <br>
+        <h4 class="card-title">Developed By</h4><br>
+        <p style="color: rgb(92, 214, 255);" class="card-text">Chahat Garg</p>
+        <p style="color: rgb(92, 214, 255);" class="card-text">gargchahat2005@gmail.com</p>
+        <p style="color: rgb(92, 214, 255);" class="card-text">Computer Engineer</p>
+        <p style="color: rgb(92, 214, 255);" class="card-text">Full-Stack Web Developer</p>
+    
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card d2" style="width: 49%;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="img/Boss.png" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <br>
+        <h4 class="card-title">Under the Guidence of</h4><br>
+        <p style="color: rgb(92, 214, 255);" class="card-text">Rajesh Bansal</p>
+        <p style="color: rgb(92, 214, 255);" class="card-text">Institue name :- Banglore Computer edu.</p>
+        <p style="color: rgb(92, 214, 255);" class="card-text">Author of Real Java</p>
+        <p style="color: rgb(92, 214, 255);" class="card-text"> 98722-46056 </p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<br>
+<!-- //=========================Reach Us=========== -->
+<div class="dolabel">
+   
+  <center><h4 style="line-height: 50px;">Reach Us</h4></center>
+</div>
+<br>
+
+<div class="container-fluid">
+  <div class="map-responsive">
+ <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13791.522932618522!2d74.9523281!3d30.2119513!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391732a4f07278a9%3A0x4a0d6293513f98ce!2sBanglore%20Computer%20Education!5e0!3m2!1sen!2sin!4v1689880237458!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>
+</div>
+
+
+
+<br>
+<!-- <div class="row" style="background-color: black;width: 1531px;">
+  <div >
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="line-height: 70px;color: whitesmoke;">Contact Us:-</b>
+   <a href="https://instagram.com/chahatgarg884?igshid=MzNlNGNkZWQ4Mg=="> <img src="img/insta.jpg" width="50px" height="70px" id="insta" alt=""></a>&nbsp;&nbsp;&nbsp;
+   <a href="https://www.linkedin.com/in/chahat-garg-146a9224b"> <img src="img/linkedin.png" width="40px" height="40px" alt=""></a>&nbsp;&nbsp;&nbsp;
+   <a href="mailto:gargchahat2005@gmail.com?subject=MedCare"> <img src="img/gmail.jpg" width="40px" height="30px" alt=""></a>&nbsp;&nbsp;&nbsp;
+   <a href="https://github.com/chahatgarg884"> <img src="img/github.jpg" width="50px" height="50px" alt=""></a>
+
+  </div>
+  
+</div> -->
+<nav class="navbar navbar-default navbar-fixed-top " >
+  <div class="container-fluid " id="nav2">
+    <!-- <a class="navbar-brand" href="#">
+      <img src="img/MedCare.png" alt="Bootstrap" width="50" height="45">
+    </a> -->
+    
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="row">
+          <!-- <div class="col-md-2">
+
+          </div> -->
+          <!-- <div class="col-md-5"> 
+            <img src="img/MedCare.png" alt="" width="50px" height="45px">
+          </div> -->
+          <div class="col-md-12">
+           &nbsp;&nbsp;&nbsp; <b>Contact Us</b>
+          </div>
+        </div>
+      
+       
+      </ul>
+      <a class="navbar-brand" href="https://instagram.com/chahatgarg884?igshid=MzNlNGNkZWQ4Mg==">
+      <img src="img/insta.jpg" alt="Bootstrap" width="50" height="60">
+    </a>
+    <a class="navbar-brand" href="https://www.linkedin.com/in/chahat-garg-146a9224b">
+      <img src="img/linkedin.png" alt="Bootstrap" width="40" height="40">
+    </a>
+    <a class="navbar-brand" href="mailto:gargchahat2005@gmail.com?subject=MedCare">
+      <img src="img/gmail.jpg" alt="Bootstrap" width="50" height="40">
+    </a>
+    <a class="navbar-brand" href="https://github.com/chahatgarg884">
+      <img src="img/github.jpg" alt="Bootstrap" width="50" height="50">
+    </a>
+
+      
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

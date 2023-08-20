@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style/signup.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#logout").click(function () {
+                localStorage.removeItem("activeKuch");
+                location.href = "index.html";
+            })
+        });
+    </script>
+    <style>
+        body {
+            background-color: rgb(0, 0, 0);
+        }
+        .i {
+            margin: 40px 40px 40px 40px;
+            height: 300px;
+            width: 250px;
+            align-items: center;
+        }
+        .card1 {
+            width: 1548px;
+        }
+        #c1
+        {
+            width: 350px;
+        }
+        #c2
+        {
+            border-radius: 30%;
+            margin-left: 80px;
+        }
+        .c
+        {
+            transition: ease all 1s;
+        }
+        .c:hover{
+            transform: scale(1.1);
+        }
+        #nav1
+{
+    background-color: white;
+    margin-top: -10px;
+    margin-bottom: -10px;
+height: 60px;
+
+
+/* color: antiquewhite; */
+}
+       
+    </style>
+
+
+</head>
+
+<body>
+    <!-- //==========Navigation Bar=============== -->
+    <nav class="navbar navbar-default navbar-fixed-top " style="background-color: white;" >
+        <div class="container-fluid " id="nav1">
+          <a  class="navbar-brand" href="#">
+            <img src="img/MedCare.png " alt="Bootstrap" width="50" height="45">
+          </a>
+          
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <div class="row">
+                <!-- <div class="col-md-2">
+    
+                </div>-->
+                <!-- <div class="col-md-5"> 
+                  <img src="img/MedCare.png" alt="" width="50px" height="45px">
+                </div> -->
+                <div class="col-md-5">
+                  <h3 >
+                    MedCare
+                  </h3>
+                </div>
+              </div>
+            
+             
+            </ul>
+    
+            <form class="d-flex" role="search">
+              <!-- ///////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// Log-Out ////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////// -->
+              <!-- <button type="button"  class="btn btn-danger" >Log Out</button> -->
+                
+              
+    
+            </form>
+          </div>
+        </div>
+      </nav>
+
+    <!-- //======================Cards======================= -->
+    <div class="row bg-primary mt-3 card1">
+        <div class="col-md-12 ">
+            <center>
+                <h4 class="text-white"> Needy Dashboard</h2>
+            </center>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-4 ">
+                <div class="card c" >
+                    <img src="img/group-member-information-icon.png"id="c1" class="i" alt="...">
+                    <div class="card-body">
+
+                        <center> <a href="profile-needy.html
+                            " class="btn btn-primary">Details</a></center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 ">
+                <div class="card c">
+                    <img src="img/med_finder.avif" id="c2" class="i" alt="...">
+                    <div class="card-body">
+
+                        <center> <a href="finder-med.html" class="btn btn-primary">Find Medicines</a></center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 ">
+                <div class="card c">
+                    <img src="img/log-out.png" class="i" alt="...">
+                    <div class="card-body">
+
+                        <center> <a href="index.html" class="btn btn-primary">Log Out</a></center>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+
+
+
+
+
+
+            <!-- //=====================Bootstrap link=================== -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+                crossorigin="anonymous"></script>
+
+</body>
+
+</html>
