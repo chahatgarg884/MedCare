@@ -28,7 +28,7 @@ app.use(express.urlencoded(true));
 var dbConfig = {
   host: "127.0.0.1",
   user: "root",
-  password: "cgg@65830",
+  password: "",
   database: "signup",
   dateStrings: true
 }
