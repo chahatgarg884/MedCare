@@ -25,13 +25,15 @@ app.get("/avail-med", function (req, resp) {
 
 app.use(express.urlencoded(true));
 //==========DataBase
-var dbConfig = {
-  host: "127.0.0.1",
-  user: "root",
-  password: "",
-  database: "signup",
-  dateStrings: true
-}
+require('dotenv').config();
+
+const dbConfig = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    dateStrings: true
+};
 
 var dbCon = mysql.createConnection(dbConfig);
 dbCon.connect(function (err) {
