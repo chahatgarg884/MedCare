@@ -24,7 +24,7 @@ app.get("/avail-med", function (req, resp) {
 });
 
 app.use(express.urlencoded(true));
-//==========DataBase
+//==========DataBase======================
 require('dotenv').config();
 
 const dbConfig = {
