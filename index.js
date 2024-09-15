@@ -33,7 +33,6 @@ app.get("/avail-med", function (req, resp) {
 
 app.use(express.urlencoded(true));
 //==========DataBase======================
-require('dotenv').config();
 
 var dbConfig = {
   host: "127.0.0.1",
