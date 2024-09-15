@@ -35,13 +35,13 @@ app.use(express.urlencoded(true));
 //==========DataBase======================
 require('dotenv').config();
 
-const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    dateStrings: true
-};
+var dbConfig = {
+  host: "127.0.0.1",
+  user: "root",
+  password: "cgg@65830",
+  database: "signup",
+  dateStrings: true
+}
 
 var dbCon = mysql.createConnection(dbConfig);
 dbCon.connect(function (err) {
