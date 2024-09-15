@@ -2,7 +2,15 @@ var express = require("express");
 var mysql = require("mysql2");
 var fileuploader = require("express-fileupload");
 var app = express();
-app.listen(2005 || process.env.PORT, function () {
+const cors=require("cors");
+const corsConfig={
+  origin: "*",
+  Credential:true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}
+app.options("",cors(corsConfig));
+app.use(cors(corsConfig));
+app.listen(2005, function () {
   console.log("Server Started");
 });
 const nodemailer = require("nodemailer");
